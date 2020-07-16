@@ -11,6 +11,7 @@
 
 /* ---- Base Rules ---- */
 html {
+    /* this is not supported in safari */
     scroll-behavior: smooth;
 }
 
@@ -22,6 +23,8 @@ body {
     color: #fff;
  
 }
+
+
 
 
 /* Typeography General*/
@@ -43,6 +46,7 @@ h2 {
     font-family: 'Oxygen', Sans-Serif;
     font-size: 3em;
     color: #fff;
+    text-transform: capitalize;
 }
 
 p {
@@ -68,44 +72,114 @@ section {
 
 /* ---- Module Rules ---- */
 
+
+
 /* Navigation Styles*/
-.navbar__menu ul {
-    margin: 0;
-    text-align: right;
+.navbar__menu {
+    height: 4em;
+    overflow: hidden;
+
 }
 
-.navbar__menu li {
+.expand-menu {
+    height:auto;
+
+}
+
+.navbar__menu ul {
+    display:grid;
+    grid-template-columns: repeat(auto-fit,40%);
+    grid-auto-rows: minmax(4em,auto);
+    margin: 0 auto;
+    text-align: center;
+    padding:0;
+    justify-content: center;
+    overflow-wrap: break-word;
+    align-items: center;
+    text-transform: capitalize;
+}
+
+.navbar__menu li {   
     display: inline-block;
 }
 
 .navbar__menu a {
+    padding:1.2em;
     display: block;
-    padding: 1.2em;
     font-weight: bold;
     text-decoration: none;
     color: #fffff8;
 }
 
-.navbar__menu a:hover {
-    background: #333;
-    color: rgb(255, 73, 73);
+.navbar__menu a:hover,
+.navbar-active a{
+    background: rgb(17, 73, 156);
+    color: #eee;
     transition: ease 0.3s all;
+    -webkit-transition: ease 0.3s all;
+    -moz-transition: ease 0.3s all;
+    -ms-transition: ease 0.3s all;
+    -o-transition: ease 0.3s all;
 }
 
-/* navbar active */
-.navbar-active {
-    background: rgb(255, 226, 226);
-    color: rgb(255, 73, 73);
-    transition: ease 0.3s all;
+
+
+/* expansion icon rules */
+
+.icon-container {
+    padding: 1em;
+    display:flex;
+    justify-content: center;
 }
+
+.icon-container i {
+    padding:0 40px;
+}
+
+
+
+/* back to top icon rule */
+.back-to-top {
+    all:unset;
+}
+.back-to-top {
+    display:flex;
+    width:3em;
+    height:3em;
+    border-radius: 50%;
+    position: fixed;
+    bottom:1.5em;
+    right:1.5em;
+    background: #eee;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    
+}
+
+.back-to-top img {
+    width:1.8em;
+    
+}
+
 
 /* Header Styles */
 .page__header {
-    background: rgb(35, 46, 84);
+    background: #232e54;
     position: fixed;
     top: 0;
+    opacity: 1;
     width: 100%;
     z-index: 5;
+    transition: top 0.5s ease;
+    -webkit-transition: top 0.5s ease;
+    -moz-transition: top 0.5s ease;
+    -ms-transition: top 0.5s ease;
+    -o-transition: top 0.5s ease;
 }
 
 /* Footer Styles */
@@ -119,12 +193,47 @@ section {
     color: #fff;
 }
 
+/* set visibility */
+.hidden {
+    transition: display 1s;
+    display:none;
+    -webkit-transition: display 1s;
+    -moz-transition: display 1s;
+    -ms-transition: display 1s;
+    -o-transition: display 1s;
+}
+
+
+@media only screen and (min-width:768px) {
+    .navbar__menu ul {
+        grid-template-columns: repeat(auto-fit,30%);
+    }
+}
+
+@media only screen and (min-width:1200px) {
+    .navbar__menu ul {
+        margin:0 auto;
+        width: 60%;
+        grid-template-columns: repeat(auto-fit,20%);
+    }
+
+}
+
+
 
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
 .landing__container {
     padding: 1em;
     text-align: left;
+    
+}
+
+.landing__container h2 {
+    /* deal with the case of a very very long word */
+    display:grid;
+    grid-template-columns: 100%;
+    overflow-wrap: break-word;
 }
 
 @media only screen and (min-width: 35em){
@@ -209,12 +318,14 @@ section:nth-of-type(3n + 1) .landing__container::after {
 }
 
 
+
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
 /* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
 section.section-active {
     background: rgba(0, 0, 0, 0.5);
     transition: ease 0.3s all;
+    z-index: -100;
     /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%); */
 }
 
